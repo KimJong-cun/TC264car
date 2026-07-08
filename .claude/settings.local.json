@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(make -C Debug all)",
+      "Bash(command -v gcc clang cctc)",
+      "Bash(cat)",
+      "Bash(python3 /tmp/analyze_waypoints.py)",
+      "Bash(grep -E \"\\\\.\\(c|h\\)$\")",
+      "mcp__memory__open_nodes",
+      "Bash(git -C \"/c/Users/Kim/Desktop/新建文件夹/rc版本\" log --oneline -- code/app/nav_app.c)"
+    ]
+  }
+}
