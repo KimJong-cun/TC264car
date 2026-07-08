@@ -4,11 +4,9 @@
  *  Created on: 2026-07-04
  *      Author: KimJong
  *  Description: Preset-path route following — virtual-target-point averaging
- *               over a fixed-arc-length-resampled waypoint array, plus a
- *               yaw feedback filter to damp low-speed weaving (画龙) before
- *               it reaches the navigation decision. No pure-pursuit /
- *               cross-track blend — see route设计思路.md for the full
- *               rationale and the algorithm design.
+ *               over a fixed-arc-length-resampled waypoint array. No
+ *               pure-pursuit / cross-track blend — see route设计思路.md for
+ *               the full rationale and the algorithm design.
  *               Pure geometry/filter functions only; the path array below
  *               is fixed read-only data (from tools/nav_route_resampled.c.txt),
  *               not mutable state — callers (nav_app.c) own the state
@@ -26,13 +24,13 @@
  * 预瞄距离 ~= NAV_ROUTE_LOOKAHEAD_POINTS × 0.10m。上车实测后再调。 */
 #define NAV_ROUTE_LOOKAHEAD_POINTS      5u
 
-/* 当前 yaw 反馈的 EMA 系数，专门滤低速画龙噪声，不影响 dead reckoning 积分
- * 和转向环实时反馈。上车实测画龙振幅/周期后再调，
- * 并核对 route设计思路.md 里斜坡限幅预算（问题1）是否够用。 */
-#define NAV_ROUTE_YAW_FILTER_ALPHA       0.15f
-
 /* 终点判定阈值：最后一段投影 t>=1 或离终点距离小于此值即算到达。 */
 #define NAV_ROUTE_WP_REACH_M             0.20f
+
+/* 每次进入 route 之前先直走的距离（米）：车先按 route 速度沿当前朝向直线走
+ * 这么远，再把 odometry 位置对齐到路径数组第一个点，开始真正的路径跟踪。
+ * 走这段时对外呈报的导航坐标固定为 0（见 nav_app.c 的 nav_get_data()）。 */
+#define NAV_ROUTE_PRE_STRAIGHT_DISTANCE_M   1.0f
 
 uint16 nav_route_point_count(void);
 
@@ -53,21 +51,6 @@ void nav_route_compute_target(uint16 index, float *out_x, float *out_y);
  * （x右正/y前正/顺时针为正/y轴为0°基准）。纠偏由方位起点选 robot 位置
  * 自然产生，不需要额外的 cross-track blend 或 P 项。 */
 float nav_route_compute_bearing_deg(float robot_x, float robot_y, float target_x, float target_y);
-
-/* 当前 yaw（局部坐标，即 nav_odometry pose->heading）的 EMA 滤波。
- * 纯函数，状态由调用者持有并传入传出。 */
-float nav_route_yaw_filter_update(float prev_local_deg, float raw_local_deg, float alpha);
-
-/* 把 route设计思路.md 第7步的 error = target_yaw_global - yaw_filtered_global
- * 转换成喂给 balance_set_heading_target 的绝对目标角，让 balance_steering_loop
- * 内部自己算出来的误差正好等于这个 error，不需要修改 balance_app.c。
- * yaw_filtered_local_deg 是局部坐标（nav_odometry 的 heading），内部会加上
- * nav_yaw_init_deg 转成全局坐标再和 target_yaw_global_deg 比较——不要在外面
- * 先转换好再传进来，避免局部/全局坐标混用导致恒定偏移。 */
-float nav_route_compute_balance_target_deg(float yaw_now_global_deg,
-                                           float target_yaw_global_deg,
-                                           float yaw_filtered_local_deg,
-                                           float nav_yaw_init_deg);
 
 /* 终点判定：index 是否已推进到最后一段，且最后一段投影 t>=1 或
  * 离终点距离 < NAV_ROUTE_WP_REACH_M。 */

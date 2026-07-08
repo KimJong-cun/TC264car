@@ -27,8 +27,6 @@ uint8 nav_route_test_run(void)
     float x = 0.0f;
     float y = 0.0f;
     float bearing = 0.0f;
-    float yaw_filtered = 0.0f;
-    float balance_target = 0.0f;
 
     pass &= (160u == count) ? 1u : 0u;
 
@@ -63,23 +61,6 @@ uint8 nav_route_test_run(void)
     bearing = nav_route_compute_bearing_deg(0.0f, 0.0f, 0.0f, -1.0f);  /* behind */
     pass &= (nav_route_test_close(bearing, 180.0f, 1.0e-3f) ||
              nav_route_test_close(bearing, -180.0f, 1.0e-3f)) ? 1u : 0u;
-
-    /* yaw_filter_update: alpha=1 snaps to raw, alpha=0 holds prev, and
-     * wrap-around at the +/-180 boundary stays continuous. */
-    pass &= nav_route_test_close(nav_route_yaw_filter_update(10.0f, 50.0f, 1.0f), 50.0f, 1.0e-3f) ? 1u : 0u;
-    pass &= nav_route_test_close(nav_route_yaw_filter_update(10.0f, 50.0f, 0.0f), 10.0f, 1.0e-3f) ? 1u : 0u;
-    yaw_filtered = nav_route_yaw_filter_update(179.0f, -179.0f, 0.5f);
-    pass &= nav_route_test_close(yaw_filtered, 180.0f, 1.0e-3f) ? 1u : 0u;
-
-    /* compute_balance_target_deg: local->global conversion must cancel
-     * nav_yaw_init exactly when target_yaw_global == yaw_filtered_global. */
-    balance_target = nav_route_compute_balance_target_deg(45.0f, 90.0f, 0.0f, 90.0f);
-    pass &= nav_route_test_close(balance_target, 45.0f, 1.0e-3f) ? 1u : 0u;
-
-    /* With a real correction: yaw_filtered_local=0 -> global=90(=nav_yaw_init);
-     * target_yaw_global=100 -> correction=+10; result = yaw_now(45)+10=55. */
-    balance_target = nav_route_compute_balance_target_deg(45.0f, 100.0f, 0.0f, 90.0f);
-    pass &= nav_route_test_close(balance_target, 55.0f, 1.0e-3f) ? 1u : 0u;
 
     /* is_finished: false while index hasn't reached the last segment;
      * false on the last segment while still far from the goal; true once

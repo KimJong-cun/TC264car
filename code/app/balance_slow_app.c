@@ -11,7 +11,7 @@
 
 /* 航向环 10 ms 调一次，这里相当于给目标航向加斜坡，
  * 防止目标航向突变时外环瞬间给出过大的 target_angle。 */
-#define BALANCE_SLOW_HEADING_STEP_DEFAULT           (0.30f)
+#define BALANCE_SLOW_HEADING_STEP_DEFAULT           (0.27f)
 
 PID_T balance_low_speed_steering_pid;
 PID_T balance_low_speed_angle_pid;
@@ -31,7 +31,7 @@ void balance_low_speed_init(void)
 
     /* 用 pid_set_integral_limit：限幅每拍生效（防 windup）；
      * 旧的 pid_app_limit_integral 只在此刻 clamp 一次，运行时形同虚设。 */
-    pid_set_integral_limit(&balance_low_speed_angle_pid, -300.0f, 300.0f);  // 积分限幅 ±300
+    pid_set_integral_limit(&balance_low_speed_angle_pid, -500.0f, 500.0f);  // 积分限幅 ±300
 }
 
 void balance_low_speed_reset(void)

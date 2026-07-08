@@ -292,24 +292,6 @@ float nav_route_compute_bearing_deg(float robot_x, float robot_y, float target_x
     return atan2f(dx, dy) * NAV_ROUTE_RAD_TO_DEG;
 }
 
-float nav_route_yaw_filter_update(float prev_local_deg, float raw_local_deg, float alpha)
-{
-    float delta = angle_wrap_deg(raw_local_deg - prev_local_deg);
-
-    return angle_wrap_deg(prev_local_deg + alpha * delta);
-}
-
-float nav_route_compute_balance_target_deg(float yaw_now_global_deg,
-                                           float target_yaw_global_deg,
-                                           float yaw_filtered_local_deg,
-                                           float nav_yaw_init_deg)
-{
-    float yaw_filtered_global_deg = angle_wrap_deg(nav_yaw_init_deg + yaw_filtered_local_deg);
-    float correction_deg = angle_wrap_deg(target_yaw_global_deg - yaw_filtered_global_deg);
-
-    return angle_wrap_deg(yaw_now_global_deg + correction_deg);
-}
-
 uint8 nav_route_is_finished(uint16 index, float robot_x, float robot_y)
 {
     uint16 last_seg = (uint16)(NAV_ROUTE_PATH_COUNT - 2u);

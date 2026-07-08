@@ -233,8 +233,47 @@ N 对应的实际预瞄距离会随航点疏密变化忽远忽近，同一个 N 
 - 重采样间距：`step_m=0.10`（`tools/nav_route_resample.py` 默认值）
 - 圆角半径：`fillet_radius_m=0.30`（同上）
 - N（预瞄点数）：`NAV_ROUTE_LOOKAHEAD_POINTS=5`（`nav_route.h`，对应预瞄距离 0.5m）
-- 当前 yaw 滤波的 EMA alpha：`NAV_ROUTE_YAW_FILTER_ALPHA=0.15`（`nav_route.h`）
 - 终点判定阈值：`NAV_ROUTE_WP_REACH_M=0.20`（`nav_route.h`）
 - 目标 yaw 的二次平滑（rb 的转弯/直线两档 alpha）：已决定不采用，第 7 步到此为止
-- 问题1（斜坡限幅预算 30°/s vs 画龙实测峰值角速度）：上车实测后才能确认补偿公式
-  是否精确成立，这是唯一还需要真实硬件数据才能关闭的问题
+
+## 2026-07-09 更新：移除 yaw 反推补偿
+
+上车实测发现 route 模式下动力"一阵一阵"、速度锁不住。排查定位到根因就是本文档
+"接入 balance 时必须处理的两个问题"里问题1标注的风险：`nav_route_compute_balance_target_deg()`
+把车"当前朝向 yaw_now"整个代入喂给 `balance_set_heading_target()` 的目标角，等价于
+要求 `balance_update_heading_command()` 的限速斜坡每 tick 精确追上 yaw 自身的瞬时
+变化率（约等于画龙的瞬时角速度）。这个变化率在低速画龙时接近车物理转向能力的极限
+（`AGENTS.md` 记录的 ~22°/s），当前 slow 模式斜坡预算只有 30°/s——调大预算治不了
+这个结构性问题，因为要追踪的量本身就接近物理极限。一旦斜坡饱和，补偿公式产生的
+目标角不再等于设计值，车身姿态被这套算法自己搅动，通过车身物理耦合传导到驱动轮
+负载和编码器速度反馈上，速度 PID 再去追这个被污染的反馈，duty 输出就跟着一阵一阵跳。
+
+结论：直接删除这套"用 yaw_now 反推补偿"的接入方式，以及配套的当前 yaw EMA 滤波
+（第6步、`nav_route_yaw_filter_update()`、`nav_route_compute_balance_target_deg()`、
+`NAV_ROUTE_YAW_FILTER_ALPHA`）。route 模式的转向目标计算方式改为与 manual 模式的
+TURN 任务完全对齐：算出全局目标角 `target_yaw_global` 后直接
+`balance_set_heading_target(target_yaw_global)`，让现有限速斜坡按原本设计的方式
+工作，不再有任何反推/补偿逻辑。虚拟目标点求均值（第3步，`nav_route_compute_target`）
+本身自带的平滑效果保留不变，作为后续应对画龙的唯一调参手段——如果实车验证后画龙仍
+明显，优先调大 `NAV_ROUTE_LOOKAHEAD_POINTS`（预瞄距离），不再恢复补偿公式这条路。
+
+因此上面"接入 balance 时必须处理的两个问题"整节和第6/7步描述的设计已不再是当前
+实现，保留在文档中仅供追溯排查过程；问题1不是"需要上车实测确认预算是否够用"，
+而是已确认这套接入方式本身有结构性缺陷，直接移除。
+
+## 2026-07-09 新增：进入路径前先直走一段
+
+`nav_route_activate()` 触发后不再直接把 odometry 位置对齐到 `path[0]` 就开始索引
+推进，而是先按当前朝向直走 `NAV_ROUTE_PRE_STRAIGHT_DISTANCE_M`（`nav_route.h`，
+默认 1.0m），走够距离后才调用新增的 `nav_route_enter_path()` 完成原来的对齐动作
+（`nav_odometry_set_position` 到 `path[0]` + `s_nav_route_index=0` + 第一次
+`nav_route_apply_target`）。目的是给车一段起步直线缓冲，不要求车一上电触发就立刻
+对齐到路径第一个点的朝向。
+
+实现上新增 `s_nav_route_pre_straight_active` 状态位（`nav_app_internal.h`），
+`nav_route_update_task()` 每 tick 先检查这个标志，为真就走
+`nav_route_update_pre_straight()`（只做直走距离判断 + 航向目标保持不变），为假才
+走原来的路径跟踪分支。直走期间对外的导航坐标（`nav_get_data()` 里的
+x/y/target_x/target_y）固定打 0，不呈报车的真实里程计位置——因为这段不属于路径
+本身，混进去会让下位机把直走轨迹误当成路径跟踪轨迹画出来。`distance`/`heading`/
+`state` 字段不受影响，仍然正常输出。

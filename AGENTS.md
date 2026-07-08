@@ -76,20 +76,20 @@
 
 ### route 模式（预设路径跟踪，2026-07-04 新增）
 
-不用 pure pursuit（rb 版本那套 foot-to-carrot/robot-to-carrot cross-track blend），换成"往后取 N 个重采样路径点求均值生成虚拟目标点，直接从车当前位置看向该点"，纠偏靠这个几何关系自然产生，另外单独加一层 yaw 反馈 EMA 滤波应对低速画龙。完整算法设计和排除方案记录在 `route设计思路.md`，这里只记要点：
+不用 pure pursuit（rb 版本那套 foot-to-carrot/robot-to-carrot cross-track blend），换成"往后取 N 个重采样路径点求均值生成虚拟目标点，直接从车当前位置看向该点"，纠偏靠这个几何关系自然产生。曾经加过一层 yaw 反馈 EMA 滤波 + 反推补偿公式应对低速画龙，2026-07-09 上车实测发现是动力"一阵一阵"的根因（结构性要求转向斜坡追踪量接近车物理极限），已移除，现在目标角直接喂给 `balance_set_heading_target`，与 manual TURN 一致。完整算法设计、排除方案和这次移除的原因记录在 `route设计思路.md`，这里只记要点：
 
 - **文件**：`code/driver/nav/nav_route.h/c`（纯函数 + 路径数组，仿 `nav_manual.*` 风格）。路径数组由 `tools/nav_route_resample.py` 离线生成（对 `tools/nav_route_points.c.txt` 先做拐角圆角、再按固定弧长重采样），当前是 160 点、弧长 15.9m，手动粘进 `nav_route.c` 的 `s_nav_route_path[]`——工具本身不直接改 `.c` 文件，改路径后要重新跑一次再手动粘贴。
 - **API**：`nav_start_route(speed_mps)` 进 `WAIT_START`，触发后 `nav_app.c` 里的 `nav_route_activate()`/`nav_route_update_task()` 接管；`nav_is_route_mode()`、`nav_get_route_index()` 供状态查询。
+- **进入路径前先直走一段（2026-07-09 新增）**：`nav_route_activate()` 触发后不直接对齐 path[0]，先保持当前朝向直走 `NAV_ROUTE_PRE_STRAIGHT_DISTANCE_M`（`nav_route.h`，默认 1.0m），走够距离（`nav_route_update_pre_straight()` 判定）才调用 `nav_route_enter_path()` 把 odometry 位置对齐到 `path[0]`、真正开始索引推进。这段直走期间 `nav_get_data()` 对外坐标（x/y/target_x/target_y）固定打 0（`s_nav_route_pre_straight_active` 标志控制），避免下位机把直走阶段误当路径数据画出来；`nav`/`debug_telemetry` xytest 帧显示的都是这份对外数据。
 - **UART 命令**：`route <speed_mps>`；`nav` 状态快照加了 `mode=route/manual` 和 `route_idx=`。
-- **调参参数**（`nav_route.h`，均为默认值，待上车实测调）：`NAV_ROUTE_LOOKAHEAD_POINTS=5`（预瞄点数，配合 0.10m 重采样间距≈预瞄 0.5m）、`NAV_ROUTE_YAW_FILTER_ALPHA=0.15`（当前 yaw 反馈 EMA 系数）、`NAV_ROUTE_WP_REACH_M=0.20`（终点判定阈值）。
-- **接入 balance 不改 balance_app.c**：yaw 滤波只在 nav_route 层内部生效（`s_nav_route_yaw_filtered`，滤的是局部坐标 `pose->heading`，不进 `nav_odometry` 的 dead reckoning 积分，也不进 `balance_steering_loop` 实时反馈），要让这层滤波在闭环里真正起作用，用 `nav_route_compute_balance_target_deg()` 反向构造一个绝对目标角喂给现有的 `balance_set_heading_target()`，让 `balance_steering_loop` 自己算出来的误差正好等于 `target_yaw_global - yaw_filtered_global`。
-- **上车前必须核实**：这个补偿公式每 tick 都把当前 `yaw` 整个代入目标角，等价于要求 `balance_update_heading_command()` 的斜坡每 tick 追上 yaw 的瞬时变化量（画龙的瞬时角速度）。已知预算是 slow 模式 30°/s（当前默认）、fast 模式 70°/s（见上面"模块边界"里的斜坡说明）。上车前要实测画龙振幅 A(度) 和周期 T(秒)，算峰值角速度 `A×2π/T`，若接近或超过对应模式的预算，斜坡会饱和，实际误差不再精确等于设计值，需要回到 `nav_route.c`/`nav_app.c` 这一层重新设计接入方式（不能改 `balance_app.c`）。
-- **验证**：`code/test/nav_route_test.c` 覆盖了 `nav_route.c` 里全部纯函数（索引推进、均值取点、bearing、yaw 滤波、局部/全局坐标转换、终点判定），期望值是用 Python 复刻同一套算法算出的 ground truth，跟当前嵌入的 160 点路径数据绑定——路径重采样参数变了要重新算期望值。硬件层面的画龙收敛效果、终点停车是否准确，还没有实车验证。
+- **调参参数**（`nav_route.h`，均为默认值，待上车实测调）：`NAV_ROUTE_LOOKAHEAD_POINTS=5`（预瞄点数，配合 0.10m 重采样间距≈预瞄 0.5m）、`NAV_ROUTE_WP_REACH_M=0.20`（终点判定阈值）、`NAV_ROUTE_PRE_STRAIGHT_DISTANCE_M=1.0`（进入路径前直走距离）。
+- **接入 balance 不改 balance_app.c**：目标角算出全局 `target_yaw_global` 后直接 `balance_set_heading_target(target_yaw_global)`，和 manual 模式的 TURN 任务走同一条路径，`balance_update_heading_command()` 的限速斜坡按原本设计工作，不做任何反推/补偿。若实车画龙仍明显，优先调大 `NAV_ROUTE_LOOKAHEAD_POINTS`（预瞄距离），不要再引入依赖斜坡追踪 yaw 瞬时变化率的接入方式——已证明是结构性问题，会撞车物理转向极限（~22°/s，见文末车模限制说明）。详见 `route设计思路.md`"2026-07-09 更新"。
+- **验证**：`code/test/nav_route_test.c` 覆盖了 `nav_route.c` 里全部纯函数（索引推进、均值取点、bearing、终点判定），期望值是用 Python 复刻同一套算法算出的 ground truth，跟当前嵌入的 160 点路径数据绑定——路径重采样参数变了要重新算期望值。硬件层面的画龙收敛效果、终点停车是否准确，还没有实车验证。
 
 ## 已知小问题（暂未修，规划下次处理）
 1. **IMU yaw 起步零点**：上电 EKF 锁的 `s_yaw_zero_deg`（`code/driver/imu/ekf.c`）取决于上电时朝向。建议后续在串口层增加 yaw 零点锁定入口，让用户在车摆好后手动锁零。
 2. **dead reckoning 完全靠 IMU yaw**：没磁力计校准、没视觉，`nav_odometry` 纯积分 `wheel_speed` + heading，长任务会漂。route 模式的 160 点、15.9m 全程比 manual 模式的单任务距离长得多，这个漂移风险更需要关注。
-3. **route 模式接入 balance 的补偿公式尚未上车验证**：见上面"route 模式"小节的"上车前必须核实"——斜坡限幅预算够不够追上画龙，需要实测数据才能确认。
+3. ~~route 模式接入 balance 的补偿公式尚未上车验证~~：已于 2026-07-09 移除，见下面 route 模式小节和 `route设计思路.md`"2026-07-09 更新"。
 
 ## 已删除（曾经存在，记录以防误读 git/历史）
 - **单任务式 DIRECT/TURN 导航 API**（早于当前 `nav_manual.c` 队列重构）：`nav_start_direct_task()` / `nav_start_turn_task()` / `nav_start()` / `nav_force_launch()` / `nav_cancel()`、`NAV_START_ACCEL_DELTA_G` 模块常量、`s_nav_chaining_task` 衔接标志。当前替代实现是队列化的 `nav_enqueue_direct()` / `nav_enqueue_turn()` / `nav_start_manual()` / `nav_cancel_task()`（见上面"manual 模式"）。

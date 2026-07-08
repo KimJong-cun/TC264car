@@ -39,6 +39,8 @@ static uint16 s_nav_manual_timeout_ticks = 0u;
 
 static float s_nav_route_speed_mps = 0.0f;
 static uint16 s_nav_route_index = 0u;
-static float s_nav_route_yaw_filtered = 0.0f;
+static uint8 s_nav_route_pre_straight_active = 0u;
+static float s_nav_route_pre_straight_start_distance = 0.0f;
+static float s_nav_route_pre_straight_target_yaw = 0.0f;
 
 #endif /* CODE_APP_NAV_APP_INTERNAL_H_ */

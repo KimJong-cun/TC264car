@@ -194,37 +194,71 @@ static void nav_route_apply_target(const nav_pose_t *pose)
     float target_y = 0.0f;
     float bearing_deg;
     float target_yaw_global;
-    float balance_target_deg;
 
     nav_route_compute_target(s_nav_route_index, &target_x, &target_y);
     bearing_deg = nav_route_compute_bearing_deg(pose->x, pose->y, target_x, target_y);
     target_yaw_global = angle_wrap_deg(s_nav_yaw_init + bearing_deg);
 
-    balance_target_deg = nav_route_compute_balance_target_deg(yaw, target_yaw_global,
-                                                               s_nav_route_yaw_filtered,
-                                                               s_nav_yaw_init);
-
     s_nav_target_x = target_x;
     s_nav_target_y = target_y;
-    balance_set_heading_target(balance_target_deg);
+    balance_set_heading_target(target_yaw_global);
+}
+
+static void nav_route_enter_path(void)
+{
+    float start_x = 0.0f;
+    float start_y = 0.0f;
+    const nav_pose_t *pose = 0;
+
+    /* 把 odometry 位置对齐到路径数组的第一个点，而不是车物理启动位置的
+     * 本地 (0,0)，这样 route 从 index 0 开始就是准确对应关系，不需要
+     * 靠 nav_route_advance_index 的投影去"猜"车在路径里的位置。 */
+    nav_route_get_point(0u, &start_x, &start_y);
+    nav_odometry_set_position(start_x, start_y);
+
+    s_nav_route_index = 0u;
+    pose = nav_odometry_get_pose();
+    nav_route_apply_target(pose);
 }
 
 static void nav_route_activate(void)
 {
-    const nav_pose_t *pose = nav_odometry_get_pose();
-
-    s_nav_route_index = 0u;
-    s_nav_route_yaw_filtered = pose->heading;
+    /* 先直走 NAV_ROUTE_PRE_STRAIGHT_DISTANCE_M，再进入路径跟踪：
+     * 保持车当前朝向作为直走目标角，走够距离后才对齐到 path[0]。 */
+    s_nav_route_pre_straight_active = 1u;
+    s_nav_route_pre_straight_start_distance = nav_get_distance_internal();
+    s_nav_route_pre_straight_target_yaw = yaw;
 
     balance_reset_heading_target(yaw);
-    nav_route_apply_target(pose);
+    balance_set_heading_target(s_nav_route_pre_straight_target_yaw);
     motor_set_speed_mps(s_nav_route_speed_mps);
+}
+
+static void nav_route_update_pre_straight(void)
+{
+    float traveled_m;
+
+    balance_set_heading_target(s_nav_route_pre_straight_target_yaw);
+    traveled_m = nav_get_distance_internal() - s_nav_route_pre_straight_start_distance;
+
+    if (traveled_m >= NAV_ROUTE_PRE_STRAIGHT_DISTANCE_M)
+    {
+        s_nav_route_pre_straight_active = 0u;
+        nav_route_enter_path();
+    }
 }
 
 static void nav_route_update_task(void)
 {
-    const nav_pose_t *pose = nav_odometry_get_pose();
+    const nav_pose_t *pose = 0;
 
+    if (s_nav_route_pre_straight_active)
+    {
+        nav_route_update_pre_straight();
+        return;
+    }
+
+    pose = nav_odometry_get_pose();
     s_nav_route_index = nav_route_advance_index(s_nav_route_index, pose->x, pose->y);
 
     if (nav_route_is_finished(s_nav_route_index, pose->x, pose->y))
@@ -234,9 +268,6 @@ static void nav_route_update_task(void)
         return;
     }
 
-    s_nav_route_yaw_filtered = nav_route_yaw_filter_update(s_nav_route_yaw_filtered,
-                                                           pose->heading,
-                                                           NAV_ROUTE_YAW_FILTER_ALPHA);
     nav_route_apply_target(pose);
 }
 
@@ -252,6 +283,7 @@ void nav_init(void)
     nav_reset_yaw_reference(yaw);
     s_nav_mode = NAV_MODE_MANUAL;
     s_nav_state = NAV_STATE_IDLE;
+    s_nav_route_pre_straight_active = 0u;
     balance_reset_heading_target(yaw);
 }
 
@@ -262,6 +294,7 @@ void nav_reset(void)
     nav_odometry_reset(0.0f);
     s_nav_mode = NAV_MODE_MANUAL;
     s_nav_state = NAV_STATE_IDLE;
+    s_nav_route_pre_straight_active = 0u;
     nav_odometry_capture_start_wait_reference();
     balance_reset_heading_target(yaw);
     motor_set_speed_mps(0.0f);
@@ -270,11 +303,15 @@ void nav_reset(void)
 const nav_data_t *nav_get_data(void)
 {
     const nav_pose_t *pose = nav_odometry_get_pose();
+    uint8 hide_route_pre_straight = (uint8)((NAV_MODE_ROUTE == s_nav_mode) &&
+                                            s_nav_route_pre_straight_active);
 
-    s_nav_data.x = pose->x;
-    s_nav_data.y = pose->y;
-    s_nav_data.target_x = s_nav_target_x;
-    s_nav_data.target_y = s_nav_target_y;
+    /* route 模式的直走预备段不是路径本身的一部分，对外坐标固定打 0，
+     * 避免下位机把这段直走误当成路径跟踪数据来画。 */
+    s_nav_data.x = hide_route_pre_straight ? 0.0f : pose->x;
+    s_nav_data.y = hide_route_pre_straight ? 0.0f : pose->y;
+    s_nav_data.target_x = hide_route_pre_straight ? 0.0f : s_nav_target_x;
+    s_nav_data.target_y = hide_route_pre_straight ? 0.0f : s_nav_target_y;
     s_nav_data.distance = pose->distance;
     s_nav_data.heading = pose->heading;
     s_nav_data.state = s_nav_state;
@@ -332,9 +369,6 @@ uint8 nav_get_manual_task_count(void)
 
 uint8 nav_start_route(float speed_mps)
 {
-    float start_x = 0.0f;
-    float start_y = 0.0f;
-
     if (speed_mps <= 0.0f)
     {
         return 0u;
@@ -347,14 +381,9 @@ uint8 nav_start_route(float speed_mps)
 
     s_nav_mode = NAV_MODE_ROUTE;
     s_nav_route_speed_mps = speed_mps;
+    s_nav_route_pre_straight_active = 0u;
     nav_reset_yaw_reference(yaw);
     nav_arm_wait_start();
-
-    /* 把 odometry 位置对齐到路径数组的第一个点，而不是车物理启动位置的
-     * 本地 (0,0)，这样 route 从 index 0 开始就是准确对应关系，不需要
-     * 靠 nav_route_advance_index 的投影去"猜"车在路径里的位置。 */
-    nav_route_get_point(0u, &start_x, &start_y);
-    nav_odometry_set_position(start_x, start_y);
     return 1u;
 }
 
@@ -371,6 +400,7 @@ uint16 nav_get_route_index(void)
 void nav_cancel_task(void)
 {
     s_nav_mode = NAV_MODE_MANUAL;
+    s_nav_route_pre_straight_active = 0u;
     nav_manual_reset_runtime();
     nav_odometry_sync_heading(angle_wrap_deg(yaw - s_nav_yaw_init));
     s_nav_state = NAV_STATE_IDLE;
