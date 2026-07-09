@@ -20,14 +20,14 @@ static float s_balance_low_speed_pitch_balance =-0.5f;  // 低速模式平衡零
 
 void balance_low_speed_init(void)
 {
-    pid_init(&balance_low_speed_steering_pid, 0.2f,   0.0f,  2.0f,   0.0f, 10.5f);       // 输出限幅: ±10.5° 倾角(target_angle)
+    pid_init(&balance_low_speed_steering_pid, 0.1f,   0.0f,  1.8f,   0.0f, 10.5f);       // 输出限幅: ±10.5° 倾角(target_angle)
 
     /* 低速模式现为双环（航向 + 角度），角度环直接驱动舵机，不再经过 gyro 内环。
     从左到右是 p i d，target，limit。
     角度环的积分限幅需要每拍生效（防 windup），所以使用 pid_set_integral_limit 设置积分限幅。
     这里，这里取较保守的整数起点，实际仍需上电重新调参。 */
 
-    pid_init(&balance_low_speed_angle_pid,    240.0f, 20.0f, 0.0f, 0.0f, 15000.0f);  // 输出限幅: ±15000 servo_output
+    pid_init(&balance_low_speed_angle_pid,    255.0f, 20.0f, 0.0f, 0.0f, 15000.0f);  // 输出限幅: ±15000 servo_output
 
     /* 用 pid_set_integral_limit：限幅每拍生效（防 windup）；
      * 旧的 pid_app_limit_integral 只在此刻 clamp 一次，运行时形同虚设。 */
