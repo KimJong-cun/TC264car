@@ -7,8 +7,8 @@
 
 #include "motor_app.h"
 #define MOTOR_KP_DEFAULT                3.2f        /* 速度环比例系数默认值 */
-#define MOTOR_KI_DEFAULT                0.2f        /* 速度环积分系数默认值 */
-#define MOTOR_KD_DEFAULT                0.3f        /* 速度环微分系数默认值 */
+#define MOTOR_KI_DEFAULT                1.0f        /* 速度环积分系数默认值 */
+#define MOTOR_KD_DEFAULT                0.0f        /* 速度环微分系数默认值 */
 static PID_T motor_speed_pid;
 static float motor_target_raw = 0.0f;
 static float motor_ramp_raw = 0.0f;

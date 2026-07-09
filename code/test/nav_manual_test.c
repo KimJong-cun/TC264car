@@ -10,11 +10,21 @@
 #include "../app/balance_app.h"
 #include "../app/nav_app.h"
 #include "../app/uart_command.h"
+#include "../driver/nav/nav_manual.h"
 
 uint8 nav_manual_test_run(void)
 {
     uint8 pass = 1u;
     const nav_data_t *nav = 0;
+
+    /* nav_manual_should_start_decel: no decel while next speed >= current;
+     * no decel before NAV_MANUAL_DECEL_TRIGGER_RATIO (0.7) of distance;
+     * triggers once both the ratio and the slower-next-speed condition hold. */
+    pass &= (0u == nav_manual_should_start_decel(2.9f, 3.0f, 1.2f, 1.2f)) ? 1u : 0u;   /* same speed */
+    pass &= (0u == nav_manual_should_start_decel(2.9f, 3.0f, 0.9f, 1.2f)) ? 1u : 0u;   /* speeding up */
+    pass &= (0u == nav_manual_should_start_decel(1.9f, 3.0f, 1.2f, 0.9f)) ? 1u : 0u;   /* before 70% (70%=2.1m) */
+    pass &= (1u == nav_manual_should_start_decel(2.5f, 3.0f, 1.2f, 0.9f)) ? 1u : 0u;   /* past 70% */
+    pass &= (0u == nav_manual_should_start_decel(2.5f, 0.0f, 1.2f, 0.9f)) ? 1u : 0u;   /* zero distance guard */
 
     debug_telemetry_init();
     nav_reset();

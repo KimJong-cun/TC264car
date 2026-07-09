@@ -366,3 +366,5 @@ nav_manual_test.o :	..\code\app\nav_app.h
 ..\code\app\nav_app.h :
 nav_manual_test.o :	..\code\app\uart_command.h
 ..\code\app\uart_command.h :
+nav_manual_test.o :	..\code\driver\nav\nav_manual.h
+..\code\driver\nav\nav_manual.h :

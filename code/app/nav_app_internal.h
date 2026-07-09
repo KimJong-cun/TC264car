@@ -36,6 +36,7 @@ static float s_nav_manual_target_yaw = 0.0f;
 static uint16 s_nav_manual_task_age = 0u;
 static uint16 s_nav_manual_done_hold = 0u;
 static uint16 s_nav_manual_timeout_ticks = 0u;
+static uint8 s_nav_manual_decel_active = 0u;
 
 static float s_nav_route_speed_mps = 0.0f;
 static uint16 s_nav_route_index = 0u;

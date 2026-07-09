@@ -54,6 +54,7 @@ static void nav_manual_reset_runtime(void)
     s_nav_manual_task_age = 0u;
     s_nav_manual_done_hold = 0u;
     s_nav_manual_timeout_ticks = 0u;
+    s_nav_manual_decel_active = 0u;
 }
 
 static uint8 nav_manual_enqueue(nav_manual_task_type_enum type,
@@ -99,6 +100,7 @@ static void nav_manual_activate_current(uint8 reset_speed_pid)
     s_nav_manual_task_age = 0u;
     s_nav_manual_done_hold = 0u;
     s_nav_manual_timeout_ticks = 0u;
+    s_nav_manual_decel_active = 0u;
     pose = nav_odometry_get_pose();
 
     if (NAV_MANUAL_TASK_DIRECT == s_nav_manual_current.type)
@@ -143,6 +145,28 @@ static void nav_manual_finish_current(void)
     nav_manual_activate_current(0u);
 }
 
+static void nav_manual_apply_early_decel(float traveled_m)
+{
+    nav_manual_task_t next_task;
+
+    if (s_nav_manual_decel_active)
+    {
+        return;
+    }
+
+    if (0u == nav_manual_queue_peek_front(&s_nav_manual_queue, &next_task))
+    {
+        return;
+    }
+
+    if (nav_manual_should_start_decel(traveled_m, s_nav_manual_current.value,
+                                     s_nav_manual_current.speed_mps, next_task.speed_mps))
+    {
+        s_nav_manual_decel_active = 1u;
+        motor_update_speed_mps(next_task.speed_mps);
+    }
+}
+
 static void nav_manual_update_task(void)
 {
     float traveled_m = 0.0f;
@@ -160,6 +184,9 @@ static void nav_manual_update_task(void)
     if (NAV_MANUAL_TASK_DIRECT == s_nav_manual_current.type)
     {
         traveled_m = nav_get_distance_internal() - s_nav_manual_start_distance;
+
+        nav_manual_apply_early_decel(traveled_m);
+
         if (traveled_m >= s_nav_manual_current.value)
         {
             nav_manual_finish_current();

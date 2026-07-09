@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for AURIX Development Studio (non-commercial): C compiler v1.1r8 Build 22011964"
-	.compiler_invocation	"ctc -f cc27928a --dep-file=code/driver/nav/nav_route.d -c99 --fp-model=3cflnrSTz -D__CPU__=tc26xb -D__CPU_TC26XB__ --core=tc1.6.x --fp-model=+float -D__CPU__=tc26xb -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\app -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\common -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\imu -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\motor -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\nav -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\pid -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\uart -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\test -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Configurations -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Platform -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Platform\\\\Tricore -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Platform\\\\Tricore\\\\Compilers -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Sfr -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Sfr\\\\TC26B -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Sfr\\\\TC26B\\\\_Reg -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\If -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\If\\\\Ccu6If -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\StdIf -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\SysSe -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\SysSe\\\\Bsp -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\SysSe\\\\Math -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\_Utilities -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Asclin -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Asclin\\\\Asc -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Asclin\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Ccu6 -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Ccu6\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Ccu6\\\\Timer -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Cpu -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Cpu\\\\CStart -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Cpu\\\\Irq -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Cpu\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Dma -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Dma\\\\Dma -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Dma\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Flash -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Flash\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gpt12 -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gpt12\\\\IncrEnc -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gpt12\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gtm -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gtm\\\\Atom -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gtm\\\\Atom\\\\Pwm -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gtm\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Mtu -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Mtu\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Port -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Port\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Qspi -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Qspi\\\\SpiMaster -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Qspi\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Scu -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Scu\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Src -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Src\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Stm -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Stm\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Vadc -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Vadc\\\\Adc -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Vadc\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\_Impl -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\_Lib -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\_Lib\\\\DataHandling -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\_PinMap -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\zf_common -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\zf_components -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\zf_device -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\zf_driver -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\user -g2 -w544 -w557 -t4 --language=+volatile -N0 -O0 -Y0 -Z0 --compact-max-size=200 --misrac-version=2012 -o code/driver/nav/nav_route.src ../code/driver/nav/nav_route.c"
+	.compiler_invocation	"ctc -f cc21852a --dep-file=code/driver/nav/nav_route.d -c99 --fp-model=3cflnrSTz -D__CPU__=tc26xb -D__CPU_TC26XB__ --core=tc1.6.x --fp-model=+float -D__CPU__=tc26xb -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\app -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\common -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\imu -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\motor -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\nav -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\pid -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\driver\\\\uart -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\code\\\\test -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Configurations -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Platform -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Platform\\\\Tricore -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Platform\\\\Tricore\\\\Compilers -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Sfr -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Sfr\\\\TC26B -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Infra\\\\Sfr\\\\TC26B\\\\_Reg -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\If -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\If\\\\Ccu6If -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\StdIf -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\SysSe -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\SysSe\\\\Bsp -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\SysSe\\\\Math -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\Service\\\\CpuGeneric\\\\_Utilities -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Asclin -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Asclin\\\\Asc -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Asclin\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Ccu6 -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Ccu6\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Ccu6\\\\Timer -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Cpu -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Cpu\\\\CStart -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Cpu\\\\Irq -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Cpu\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Dma -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Dma\\\\Dma -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Dma\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Flash -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Flash\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gpt12 -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gpt12\\\\IncrEnc -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gpt12\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gtm -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gtm\\\\Atom -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gtm\\\\Atom\\\\Pwm -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Gtm\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Mtu -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Mtu\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Port -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Port\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Qspi -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Qspi\\\\SpiMaster -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Qspi\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Scu -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Scu\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Src -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Src\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Stm -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Stm\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Vadc -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Vadc\\\\Adc -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\Vadc\\\\Std -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\_Impl -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\_Lib -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\_Lib\\\\DataHandling -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\infineon_libraries\\\\iLLD\\\\TC26B\\\\Tricore\\\\_PinMap -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\zf_common -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\zf_components -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\zf_device -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\libraries\\\\zf_driver -IC:\\\\Users\\\\wjj\\\\Desktop\\\\111\\\\Bic\\\\user -g2 -w544 -w557 -t4 --language=+volatile -N0 -O0 -Y0 -Z0 --compact-max-size=200 --misrac-version=2012 -o code/driver/nav/nav_route.src ../code/driver/nav/nav_route.c"
 	.compiler_name		"ctc"
 	;source	'../code/driver/nav/nav_route.c'
 
@@ -15,7 +15,7 @@ $TC16X
 ; Function nav_route_point_count
 .L24:
 nav_route_point_count:	.type	func
-	mov	d2,#171
+	mov	d2,#173
 .L180:
 	j	.L2
 .L2:
@@ -35,7 +35,7 @@ __nav_route_point_count_function_end:
 ; Function nav_route_get_point
 .L26:
 nav_route_get_point:	.type	func
-	mov	d15,#170
+	mov	d15,#172
 .L127:
 	jge.u	d15,d4,.L3
 .L185:
@@ -81,7 +81,7 @@ __nav_route_get_point_function_end:
 nav_route_advance_index:	.type	func
 	mov	d3,d4
 .L130:
-	mov	d4,#169
+	mov	d4,#171
 .L129:
 	j	.L4
 .L5:
@@ -195,7 +195,7 @@ __nav_route_advance_index_function_end:
 ; Function nav_route_compute_target
 .L30:
 nav_route_compute_target:	.type	func
-	mov	d0,#170
+	mov	d0,#172
 .L146:
 	mov	d1,#0
 .L147:
@@ -296,7 +296,7 @@ __nav_route_compute_bearing_deg_function_end:
 ; Function nav_route_is_finished
 .L34:
 nav_route_is_finished:	.type	func
-	mov	d0,#169
+	mov	d0,#171
 .L156:
 	jge.u	d4,d0,.L15
 .L256:
@@ -413,51 +413,51 @@ __nav_route_is_finished_function_end:
 	.sect	'.rodata.nav_route.s_nav_route_path'
 	.align	4
 s_nav_route_path:	.type	object
-	.size	s_nav_route_path,1368
-	.word	-1094881116,-1095552205,-1094545572,-1098907648,-1094210028,-1105618534,-1093874483,-1119040307
-	.word	-1092867850,1028443341,-1090854584,1040522936,-1089512407,1045220557,-1088505774,1049582633
-	.word	-1087331369,1051931443,-1085989192,1053944709,-1084479242,1055286886,-1082969293,1056629064
-	.word	-1081711002,1057467924,-1080956027,1058139013,-1080368824,1059145646,-1079781622,1060487823
-	.word	-1079194419,1061662228,-1078607217,1062836634,-1078103900,1064178811,-1077768356,1065520988
-	.word	-1077516698,1066359849,-1077265039,1067114824,-1077097267,1067953684,-1077181153,1068792545
-	.word	-1077348925,1069631406,-1077516698,1070470267,-1077684470,1071225242,-1078103900,1071980216
-	.word	-1078774989,1072483533,-1079446077,1072986849,-1080117166,1073490166,-1080872141,1073825710
-	.word	-1081627116,1073951539,-1082801521,1073993482,-1084479242,1073993482,-1086156964,1073993482
-	.word	-1087834685,1073951539,-1089512407,1073951539,-1091861217,1073951539,-1095216660,1073951539
-	.word	-1098572104,1073951539,-1104947446,1073993482,-1116355953,1073993482,1025758986,1073993482
-	.word	1041194025,1073993482,1047904911,1074035425,1051595899,1074035425,1054951342,1074035425
-	.word	1057635697,1074119311,1059313418,1074203197,1060823368,1074287084,1062501089,1074370970
-	.word	1064178811,1074454856,1065604874,1074580685,1066359849,1074664571,1067114824,1074832343
-	.word	1067785912,1075125944,1068205343,1075461489,1068540887,1075838976,1068960317,1076216463
-	.word	1069379748,1076593951,1069547520,1076971438,1069463634,1077390868,1069128090,1077768356
-	.word	1068708659,1078145843,1068289229,1078481388,1067785912,1078858875,1067366482,1079236362
-	.word	1066947052,1079571907,1066443735,1079907451,1065772646,1080159109,1064682127,1080326881
-	.word	1063172178,1080452710,1061494456,1080578540,1059984507,1080746312,1058306785,1080872141
-	.word	1056629064,1080997970,1053273620,1081123799,1050253722,1081249628,1045220557,1081417400
-	.word	1036831949,1081459343,1008981770,1081417400,-1111993876,1081333514,-1102934180,1081249628
-	.word	-1097565471,1081165742,-1094210028,1081081856,-1091190129,1080997970,-1089176863,1080914084
-	.word	-1087666913,1080704369,-1086156964,1080494653,-1084647014,1080284938,-1083304837,1080117166
-	.word	-1081962660,1079907451,-1081207685,1079697736,-1080536596,1079488020,-1079949394,1079152476
-	.word	-1079613850,1078774989,-1079194419,1078397501,-1078774989,1078061957,-1078355558,1077684470
-	.word	-1078020014,1077306982,-1077936128,1076887552,-1078020014,1076468122,-1078103900,1076048691
-	.word	-1078271672,1075629261,-1078607217,1075251773,-1079194419,1074958172,-1079949394,1074748457
-	.word	-1080704369,1074580685,-1081459343,1074412913,-1082298204,1074245140,-1083808154,1074077368
-	.word	-1085485875,1073993482,-1087163597,1073993482,-1088841318,1073951539,-1090519040,1073909596
-	.word	-1093874483,1073909596,-1097229926,1073867653,-1102263091,1073825710,-1110651699,1073825710
-	.word	-2147483648,1073783767,1036831949,1073783767,1045220557,1073783767,1050253722,1073783767
-	.word	1053609165,1073783767,1056964608,1073741824,1058642330,1073741824,1060320051,1073741824
-	.word	1061997773,1073741824,1063675494,1073574052,1065353216,1073406280,1066108191,1073238508
-	.word	1066947052,1073154621,1067785912,1072819077,1068457001,1072315761,1069044204,1071728558
-	.word	1069631406,1071141356,1069966950,1070386381,1070218609,1069631406,1070386381,1068792545
-	.word	1070470267,1067953684,1070218609,1067114824,1069883064,1066359849,1069547520,1065604874
-	.word	1069211976,1064346583,1068624773,1063172178,1067953684,1062165545,1067198710,1061326684
-	.word	1066527621,1060487823,1065772646,1059648963,1064849900,1058642330,1063339950,1057803469
-	.word	1061997773,1056964608,1060487823,1054951342,1059145646,1053273620,1057635697,1051931443
-	.word	1055286886,1050253722,1052266988,1048911544,1049247089,1045891645,1045220557,1041194025
-	.word	1041865114,1028443341,1038174126,-1121724662,1034147594,-1106960712,1025758986,-1100920914
-	.word	1008981770,-1096558838,-1130113270,-1093538939,-1119040307,-1090351268,-1113336054,-1088673546
-	.word	-1109309522,-1087163597,-1106289623,-1085485875
-	.word	-1105618534,-1085150331
+	.size	s_nav_route_path,1384
+	.word	-1098236559,-1086492508,-1098236559,-1088170230,-1097901015,-1089847951,-1097901015,-1092532306
+	.word	-1097901015,-1095887749,-1097565471,-1099578737,-1097565471,-1106289623,-1096558838,-1121724662
+	.word	-1094881116,1025758986,-1093203395,1040522936,-1090854584,1044549468,-1089344635,1048911544
+	.word	-1088002458,1050924810,-1086660280,1053273620,-1085150331,1054615798,-1083640381,1055957975
+	.word	-1082130432,1057132380,-1081375457,1057635697,-1080620483,1058642330,-1080033280,1059816735
+	.word	-1079446077,1060991140,-1078858875,1062165545,-1078271672,1063339950,-1077768356,1064682127
+	.word	-1077265039,1065688760,-1076761723,1066359849,-1076342292,1067114824,-1076174520,1067953684
+	.word	-1075922862,1068708659,-1075755090,1069547520,-1075755090,1070386381,-1076090634,1071141356
+	.word	-1076593951,1071812444,-1077097267,1072483533,-1077684470,1073070735,-1078355558,1073574052
+	.word	-1079194419,1073783767,-1080033280,1073783767,-1080872141,1073783767,-1081711002,1073825710
+	.word	-1082969293,1073825710,-1084647014,1073867653,-1086324736,1073867653,-1088002458,1073909596
+	.word	-1089680179,1073909596,-1092196762,1073951539,-1095552205,1073951539,-1098907648,1073951539
+	.word	-1105618534,1073993482,-1119040307,1073993482,1028443341,1073993482,1041865114,1073993482
+	.word	1048576000,1074035425,1051931443,1074035425,1055286886,1074035425,1057803469,1074077368
+	.word	1059481190,1074119311,1061158912,1074161254,1062836634,1074203197,1064346583,1074287084
+	.word	1065604874,1074496799,1066192077,1074790400,1066527621,1075167887,1066863165,1075545375
+	.word	1067198710,1075922862,1067534254,1076300349,1067869798,1076719780,1067953684,1077139210
+	.word	1067785912,1077516698,1067366482,1077894185,1066947052,1078271672,1066527621,1078607217
+	.word	1066108191,1078984704,1065688760,1079362191,1065185444,1079739679,1064178811,1080033280
+	.word	1062668861,1080242995,1061158912,1080410767,1059481190,1080536596,1057971241,1080662426
+	.word	1055622431,1080788255,1052602532,1080914084,1049247089,1081039913,1043207291,1081081856
+	.word	1032805417,1081081856,-1124744561,1081081856,-1106960712,1081123799,-1100249825,1081123799
+	.word	-1096223293,1081123799,-1092867850,1081123799,-1090015724,1081123799,-1088505774,1081081856
+	.word	-1086995825,1080872141,-1085653647,1080620483,-1084143698,1080410767,-1082801521,1080159109
+	.word	-1081794888,1079949394,-1081039913,1079697736,-1080368824,1079446077,-1079949394,1079110533
+	.word	-1079529964,1078733046,-1079110533,1078355558,-1078691103,1078020014,-1078355558,1077642527
+	.word	-1078020014,1077265039,-1077936128,1076845609,-1078020014,1076426179,-1078103900,1076006748
+	.word	-1078271672,1075587318,-1078691103,1075209830,-1079278305,1074916229,-1080033280,1074748457
+	.word	-1080788255,1074580685,-1081543229,1074370970,-1082465976,1074203197,-1083975926,1074035425
+	.word	-1085653647,1073993482,-1087331369,1073993482,-1089009091,1073951539,-1090854584,1073909596
+	.word	-1094210028,1073909596,-1097565471,1073867653,-1102934180,1073825710,-1111993876,1073825710
+	.word	1008981770,1073783767,1038174126,1073783767,1045891645,1073783767,1050589266,1073783767
+	.word	1053944709,1073741824,1057132380,1073741824,1058810102,1073741824,1060487823,1073741824
+	.word	1062165545,1073741824,1063843267,1073574052,1065437102,1073406280,1066275963,1073238508
+	.word	1067030938,1073070735,1067702026,1072567419,1068205343,1071896330,1068624773,1071141356
+	.word	1068960317,1070386381,1069211976,1069547520,1069379748,1068792545,1069463634,1067953684
+	.word	1069295862,1067114824,1068876431,1066359849,1068373115,1065688760,1067869798,1064682127
+	.word	1067282596,1063507722,1066611507,1062668861,1065856532,1061997773,1064849900,1061158912
+	.word	1063339950,1060487823,1061830001,1059816735,1060152279,1059145646,1058642330,1058642330
+	.word	1057132380,1057971241,1054280253,1057132380,1052266988,1054615798,1050253722,1051931443
+	.word	1048576000,1048911544,1045220557,1043878380,1042536202,1034147594,1040522936,-1138501878
+	.word	1035489772,-1110651699,1028443341,-1102263091,1022739087,-1097565471,1017370378,-1094210028
+	.word	1008981770,-1090854584,-1138501878,-1089009091,-1130113270,-1087331369,-1124744561,-1085653647
+	.word	-1124744561,-1085653647
 	.calls	'nav_route_compute_bearing_deg','atan2f'
 	.calls	'nav_route_is_finished','sqrtf'
 	.calls	'nav_route_point_count','',0
@@ -19760,9 +19760,9 @@ s_nav_route_path:	.type	object
 	.byte	4,2,35,4,0,28
 	.byte	'nav_route_point_t',0,21,28,3
 	.word	141064
-	.byte	15,216,10
+	.byte	15,232,10
 	.word	141064
-	.byte	16,170,1,0
+	.byte	16,172,1,0
 .L126:
 	.byte	30
 	.word	141118
@@ -19893,7 +19893,7 @@ s_nav_route_path:	.type	object
 	.byte	2
 	.word	.L35
 	.byte	3
-	.byte	'nav_route_point_count',0,1,209,1,8
+	.byte	'nav_route_point_count',0,1,211,1,8
 	.word	.L71
 	.byte	1,1,1
 	.word	.L24,.L72,.L23
@@ -19918,7 +19918,7 @@ s_nav_route_path:	.type	object
 .L179:
 	.byte	5,12,7,0,5,2
 	.word	.L24
-	.byte	3,210,1,1,5,5,9
+	.byte	3,212,1,1,5,5,9
 	.half	.L180-.L24
 	.byte	1,5,1,9
 	.half	.L2-.L180
@@ -19944,21 +19944,21 @@ s_nav_route_path:	.type	object
 	.byte	2
 	.word	.L35
 	.byte	3
-	.byte	'nav_route_get_point',0,1,214,1,6,1,1,1
+	.byte	'nav_route_get_point',0,1,216,1,6,1,1,1
 	.word	.L26,.L73,.L25
 	.byte	4
-	.byte	'index',0,1,214,1,33
+	.byte	'index',0,1,216,1,33
 	.word	.L71,.L74
 	.byte	4
-	.byte	'out_x',0,1,214,1,47
+	.byte	'out_x',0,1,216,1,47
 	.word	.L75,.L76
 	.byte	4
-	.byte	'out_y',0,1,214,1,61
+	.byte	'out_y',0,1,216,1,61
 	.word	.L75,.L77
 	.byte	5
 	.word	.L26,.L73
 	.byte	6
-	.byte	'last',0,1,216,1,12
+	.byte	'last',0,1,218,1,12
 	.word	.L71,.L78
 	.byte	0,0,0
 	.sdecl	'.debug_abbrev',debug,cluster('nav_route_get_point')
@@ -19980,7 +19980,7 @@ s_nav_route_path:	.type	object
 .L184:
 	.byte	5,17,7,0,5,2
 	.word	.L26
-	.byte	3,215,1,1,5,5,9
+	.byte	3,217,1,1,5,5,9
 	.half	.L127-.L26
 	.byte	3,2,1,5,15,7,9
 	.half	.L185-.L127
@@ -20028,47 +20028,47 @@ s_nav_route_path:	.type	object
 	.byte	2
 	.word	.L35
 	.byte	3
-	.byte	'nav_route_advance_index',0,1,227,1,8
+	.byte	'nav_route_advance_index',0,1,229,1,8
 	.word	.L71
 	.byte	1,1,1
 	.word	.L28,.L79,.L27
 	.byte	4
-	.byte	'index',0,1,227,1,39
+	.byte	'index',0,1,229,1,39
 	.word	.L71,.L80
 	.byte	4
-	.byte	'robot_x',0,1,227,1,52
+	.byte	'robot_x',0,1,229,1,52
 	.word	.L81,.L82
 	.byte	4
-	.byte	'robot_y',0,1,227,1,67
+	.byte	'robot_y',0,1,229,1,67
 	.word	.L81,.L83
 	.byte	5
 	.word	.L28,.L79
 	.byte	6
-	.byte	'last_seg',0,1,229,1,12
+	.byte	'last_seg',0,1,231,1,12
 	.word	.L71,.L84
 	.byte	6
-	.byte	'ax',0,1,230,1,11
+	.byte	'ax',0,1,232,1,11
 	.word	.L81,.L85
 	.byte	6
-	.byte	'ay',0,1,230,1,15
+	.byte	'ay',0,1,232,1,15
 	.word	.L81,.L86
 	.byte	6
-	.byte	'bx',0,1,230,1,19
+	.byte	'bx',0,1,232,1,19
 	.word	.L81,.L87
 	.byte	6
-	.byte	'by',0,1,230,1,23
+	.byte	'by',0,1,232,1,23
 	.word	.L81,.L88
 	.byte	6
-	.byte	'sx',0,1,230,1,27
+	.byte	'sx',0,1,232,1,27
 	.word	.L81,.L89
 	.byte	6
-	.byte	'sy',0,1,230,1,31
+	.byte	'sy',0,1,232,1,31
 	.word	.L81,.L90
 	.byte	6
-	.byte	'len_sq',0,1,230,1,35
+	.byte	'len_sq',0,1,232,1,35
 	.word	.L81,.L91
 	.byte	6
-	.byte	't',0,1,230,1,43
+	.byte	't',0,1,232,1,43
 	.word	.L81,.L92
 	.byte	0,0,0
 	.sdecl	'.debug_abbrev',debug,cluster('nav_route_advance_index')
@@ -20090,7 +20090,7 @@ s_nav_route_path:	.type	object
 .L198:
 	.byte	5,8,7,0,5,2
 	.word	.L28
-	.byte	3,226,1,1,5,21,9
+	.byte	3,228,1,1,5,21,9
 	.half	.L130-.L28
 	.byte	3,2,1,5,28,9
 	.half	.L129-.L130
@@ -20196,33 +20196,33 @@ s_nav_route_path:	.type	object
 	.byte	2
 	.word	.L35
 	.byte	3
-	.byte	'nav_route_compute_target',0,1,133,2,6,1,1,1
+	.byte	'nav_route_compute_target',0,1,135,2,6,1,1,1
 	.word	.L30,.L93,.L29
 	.byte	4
-	.byte	'index',0,1,133,2,38
+	.byte	'index',0,1,135,2,38
 	.word	.L71,.L94
 	.byte	4
-	.byte	'out_x',0,1,133,2,52
+	.byte	'out_x',0,1,135,2,52
 	.word	.L75,.L95
 	.byte	4
-	.byte	'out_y',0,1,133,2,66
+	.byte	'out_y',0,1,135,2,66
 	.word	.L75,.L96
 	.byte	5
 	.word	.L30,.L93
 	.byte	6
-	.byte	'last',0,1,135,2,12
+	.byte	'last',0,1,137,2,12
 	.word	.L71,.L97
 	.byte	6
-	.byte	'i',0,1,136,2,12
+	.byte	'i',0,1,138,2,12
 	.word	.L71,.L98
 	.byte	6
-	.byte	'idx',0,1,137,2,12
+	.byte	'idx',0,1,139,2,12
 	.word	.L71,.L99
 	.byte	6
-	.byte	'sum_x',0,1,138,2,11
+	.byte	'sum_x',0,1,140,2,11
 	.word	.L81,.L100
 	.byte	6
-	.byte	'sum_y',0,1,139,2,11
+	.byte	'sum_y',0,1,141,2,11
 	.word	.L81,.L101
 	.byte	0,0,0
 	.sdecl	'.debug_abbrev',debug,cluster('nav_route_compute_target')
@@ -20244,7 +20244,7 @@ s_nav_route_path:	.type	object
 .L226:
 	.byte	5,17,7,0,5,2
 	.word	.L30
-	.byte	3,134,2,1,9
+	.byte	3,136,2,1,9
 	.half	.L146-.L30
 	.byte	3,3,1,9
 	.half	.L147-.L146
@@ -20320,29 +20320,29 @@ s_nav_route_path:	.type	object
 	.byte	2
 	.word	.L35
 	.byte	3
-	.byte	'nav_route_compute_bearing_deg',0,1,157,2,7
+	.byte	'nav_route_compute_bearing_deg',0,1,159,2,7
 	.word	.L81
 	.byte	1,1,1
 	.word	.L32,.L102,.L31
 	.byte	4
-	.byte	'robot_x',0,1,157,2,43
+	.byte	'robot_x',0,1,159,2,43
 	.word	.L81,.L103
 	.byte	4
-	.byte	'robot_y',0,1,157,2,58
+	.byte	'robot_y',0,1,159,2,58
 	.word	.L81,.L104
 	.byte	4
-	.byte	'target_x',0,1,157,2,73
+	.byte	'target_x',0,1,159,2,73
 	.word	.L81,.L105
 	.byte	4
-	.byte	'target_y',0,1,157,2,89
+	.byte	'target_y',0,1,159,2,89
 	.word	.L81,.L106
 	.byte	5
 	.word	.L32,.L102
 	.byte	6
-	.byte	'dx',0,1,159,2,11
+	.byte	'dx',0,1,161,2,11
 	.word	.L81,.L107
 	.byte	6
-	.byte	'dy',0,1,160,2,11
+	.byte	'dy',0,1,162,2,11
 	.word	.L81,.L108
 	.byte	0,0,0
 	.sdecl	'.debug_abbrev',debug,cluster('nav_route_compute_bearing_deg')
@@ -20364,7 +20364,7 @@ s_nav_route_path:	.type	object
 .L249:
 	.byte	5,25,7,0,5,2
 	.word	.L32
-	.byte	3,158,2,1,9
+	.byte	3,160,2,1,9
 	.half	.L151-.L32
 	.byte	3,1,1,5,23,9
 	.half	.L152-.L151
@@ -20398,56 +20398,56 @@ s_nav_route_path:	.type	object
 	.byte	2
 	.word	.L35
 	.byte	3
-	.byte	'nav_route_is_finished',0,1,165,2,7
+	.byte	'nav_route_is_finished',0,1,167,2,7
 	.word	.L109
 	.byte	1,1,1
 	.word	.L34,.L110,.L33
 	.byte	4
-	.byte	'index',0,1,165,2,36
+	.byte	'index',0,1,167,2,36
 	.word	.L71,.L111
 	.byte	4
-	.byte	'robot_x',0,1,165,2,49
+	.byte	'robot_x',0,1,167,2,49
 	.word	.L81,.L112
 	.byte	4
-	.byte	'robot_y',0,1,165,2,64
+	.byte	'robot_y',0,1,167,2,64
 	.word	.L81,.L113
 	.byte	5
 	.word	.L34,.L110
 	.byte	6
-	.byte	'last_seg',0,1,167,2,12
+	.byte	'last_seg',0,1,169,2,12
 	.word	.L71,.L114
 	.byte	6
-	.byte	'ax',0,1,168,2,11
+	.byte	'ax',0,1,170,2,11
 	.word	.L81,.L115
 	.byte	6
-	.byte	'ay',0,1,168,2,15
+	.byte	'ay',0,1,170,2,15
 	.word	.L81,.L116
 	.byte	6
-	.byte	'bx',0,1,168,2,19
+	.byte	'bx',0,1,170,2,19
 	.word	.L81,.L117
 	.byte	6
-	.byte	'by',0,1,168,2,23
+	.byte	'by',0,1,170,2,23
 	.word	.L81,.L118
 	.byte	6
-	.byte	'sx',0,1,168,2,27
+	.byte	'sx',0,1,170,2,27
 	.word	.L81,.L119
 	.byte	6
-	.byte	'sy',0,1,168,2,31
+	.byte	'sy',0,1,170,2,31
 	.word	.L81,.L120
 	.byte	6
-	.byte	'len_sq',0,1,168,2,35
+	.byte	'len_sq',0,1,170,2,35
 	.word	.L81,.L121
 	.byte	6
-	.byte	't',0,1,168,2,43
+	.byte	't',0,1,170,2,43
 	.word	.L81,.L122
 	.byte	6
-	.byte	'dx',0,1,168,2,46
+	.byte	'dx',0,1,170,2,46
 	.word	.L81,.L123
 	.byte	6
-	.byte	'dy',0,1,168,2,50
+	.byte	'dy',0,1,170,2,50
 	.word	.L81,.L124
 	.byte	6
-	.byte	'dist_to_goal',0,1,168,2,54
+	.byte	'dist_to_goal',0,1,170,2,54
 	.word	.L81,.L125
 	.byte	0,0,0
 	.sdecl	'.debug_abbrev',debug,cluster('nav_route_is_finished')
@@ -20469,7 +20469,7 @@ s_nav_route_path:	.type	object
 .L255:
 	.byte	5,21,7,0,5,2
 	.word	.L34
-	.byte	3,166,2,1,5,5,9
+	.byte	3,168,2,1,5,5,9
 	.half	.L156-.L34
 	.byte	3,3,1,5,16,7,9
 	.half	.L256-.L156

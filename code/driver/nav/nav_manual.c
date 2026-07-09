@@ -50,6 +50,17 @@ uint8 nav_manual_queue_pop_front(nav_manual_queue_t *queue, nav_manual_task_t *o
     return 1u;
 }
 
+uint8 nav_manual_queue_peek_front(const nav_manual_queue_t *queue, nav_manual_task_t *out_task)
+{
+    if (0u == queue->count)
+    {
+        return 0u;
+    }
+
+    *out_task = queue->items[queue->head];
+    return 1u;
+}
+
 uint8 nav_manual_queue_length(const nav_manual_queue_t *queue)
 {
     return queue->count;
@@ -77,4 +88,20 @@ uint8 nav_manual_is_turn_settled(float yaw_error_deg, float yaw_rate_dps)
 {
     return ((fabsf(yaw_error_deg) <= NAV_MANUAL_TURN_DONE_DEG) &&
             (fabsf(yaw_rate_dps) <= NAV_MANUAL_TURN_DONE_RATE_DPS)) ? 1u : 0u;
+}
+
+uint8 nav_manual_should_start_decel(float traveled_m, float distance_m,
+                                    float current_speed_mps, float next_speed_mps)
+{
+    if (next_speed_mps >= current_speed_mps)
+    {
+        return 0u;
+    }
+
+    if (distance_m <= 0.0f)
+    {
+        return 0u;
+    }
+
+    return (traveled_m >= (distance_m * NAV_MANUAL_DECEL_TRIGGER_RATIO)) ? 1u : 0u;
 }

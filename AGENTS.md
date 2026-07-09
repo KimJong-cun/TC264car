@@ -71,7 +71,8 @@
 - 队列存储、几何/时间纯计算下沉到 `code/driver/nav/nav_manual.h/c`（无副作用纯函数），`nav_app.c` 只跑状态机、调这些函数、把结果喂给 balance/motor。
 - **API**：`nav_enqueue_direct(distance_m, speed_mps)` / `nav_enqueue_turn(turn_deg, speed_mps)` 入队 → `nav_start_manual()` 进 `WAIT_START`，等加速度触发（`nav_odometry_is_start_wait_triggered()`）后自动激活第一个任务；任务串行执行，完成一个自动激活下一个，队列空回 `DONE`。`nav_clear_manual_tasks()` / `nav_cancel_task()` 可在非忙状态清空 / 随时取消。
 - **坐标系**：`nav_odometry` 维护的是**局部**坐标（route/manual 各自任务启动时刻的车头朝向为 0°，`heading = wrap(yaw - s_nav_yaw_init)`），不是绝对朝向。
-- **调参参数**（`nav_manual.h`）：`NAV_MANUAL_QUEUE_SIZE=8`、`NAV_MANUAL_TURN_DONE_DEG=5.0`、`NAV_MANUAL_TURN_DONE_RATE_DPS=8.0`、`NAV_MANUAL_TURN_DONE_HOLD_TICKS=10`、`NAV_MANUAL_TURN_TIMEOUT_BASE_TICKS=200`、`NAV_MANUAL_TURN_TIMEOUT_PER_DEG=6.0`。
+- **调参参数**（`nav_manual.h`）：`NAV_MANUAL_QUEUE_SIZE=8`、`NAV_MANUAL_TURN_DONE_DEG=5.0`、`NAV_MANUAL_TURN_DONE_RATE_DPS=8.0`、`NAV_MANUAL_TURN_DONE_HOLD_TICKS=4`（2026-07-09 从 10 改成 4，转向 ISR 10ms/拍，判定稳定所需时长从 100ms 降到 40ms，避免大转弯目标附近的小幅摆动反复清零 hold 计数导致迟迟不完成）、`NAV_MANUAL_TURN_TIMEOUT_BASE_TICKS=200`、`NAV_MANUAL_TURN_TIMEOUT_PER_DEG=6.0`、`NAV_MANUAL_DECEL_TRIGGER_RATIO=0.7`（提前减速触发比例，见下）。
+- **DIRECT 任务提前减速（2026-07-09 新增）**：`nav_manual_update_task()` 的 DIRECT 分支每 tick 调 `nav_manual_apply_early_decel()`——用 `nav_manual_queue_peek_front()` 看一眼队列里下一个任务（不出队），若下一个任务的目标速度比当前 DIRECT 任务低，且已走过当前任务距离的 `NAV_MANUAL_DECEL_TRIGGER_RATIO`（70%），就调 `motor_update_speed_mps(next.speed_mps)` 提前切到下一个任务的目标速度（不 reset PID，和现有任务衔接用的 `motor_update_speed_mps` 语义一致），避免两个任务交接瞬间速度突降。纯判定函数是 `nav_manual_should_start_decel(traveled_m, distance_m, current_speed_mps, next_speed_mps)`（`nav_manual.c`），`s_nav_manual_decel_active` 标志确保只触发一次，任务切换/重置时清零。只对 DIRECT 生效（TURN 没有以米为单位的路程概念）；只看队列里紧邻的下一个任务，不会跨两个任务往后看。
 - **UART 命令**（`uart_command.c`）：`direct <distance_m> <speed_mps>`、`turn <turn_deg> <speed_mps>`、`start`（激活队列）、`clear`（清队列）、`cancel`（取消当前任务）、`nav`（状态快照）。
 
 ### route 模式（预设路径跟踪，2026-07-04 新增）

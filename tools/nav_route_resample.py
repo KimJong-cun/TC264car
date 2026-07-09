@@ -43,6 +43,10 @@ RB_FALLBACK_POINTS = REPO_ROOT.parent / "rb版本" / "tools" / "nav_path_points.
 DEFAULT_STEP_M = 0.10
 DEFAULT_FILLET_RADIUS_M = 0.30
 
+# 编辑器背景参考圆：仅用于目视对照路径与场地边界，不参与任何重采样计算。
+BACKGROUND_CIRCLE_CENTER = (0.0, 2.0)
+BACKGROUND_CIRCLE_RADIUS_M = 2.0
+
 POINT_RE = re.compile(
     r"\{\s*(?P<x>[+-]?(?:\d+(?:\.\d*)?|\.\d+))f?\s*,\s*"
     r"(?P<y>[+-]?(?:\d+(?:\.\d*)?|\.\d+))f?\s*\}",
@@ -435,6 +439,12 @@ class ResampleEditor:
 
     def redraw(self) -> None:
         self.ax.clear()
+
+        background_circle = self.plt.Circle(
+            BACKGROUND_CIRCLE_CENTER, BACKGROUND_CIRCLE_RADIUS_M,
+            facecolor="#bfdcff", edgecolor="#6699cc", linewidth=1.0,
+            alpha=0.35, zorder=0, label=f"场地参考圆(r={BACKGROUND_CIRCLE_RADIUS_M:.1f}m)")
+        self.ax.add_patch(background_circle)
 
         ox = [p[0] for p in self.points]
         oy = [p[1] for p in self.points]
